@@ -15,10 +15,14 @@ tantra_doc = nlp(tantras)
 sentences = list(tantra_doc.sents)
 # print(sentences)
 # print(len(sentences))
+
+
 count = 0
 pastLen = 100
 fileSpacy = open("tantrasSpacy.txt","a")
 for sentence in sentences:
+
+    # If previous sentence have word count less than 5 then we append the current sentence to the previous one.
     if pastLen < 5:
         fileSpacy.write(" ")
         fileSpacy.write(str(sentence))
@@ -27,24 +31,11 @@ for sentence in sentences:
         count = 0
 
     else:
+        #Implementation of counters to ensure that longer sentences dont get appended to each other
         count += 1
         if count == 2:
             count = 1
             fileSpacy.write("\n")
         fileSpacy.write(str(sentence))
         pastLen = len(sentence)
-
-
-
-# fileSpacy = open("tantrasSpacy.txt","a")
-
-chk = 0
-for sentence in sentences:
-    print (sentence)
-    chk += 1
-    if chk == 5:
-        break
-#     fileSpacy.write(str(sentence))
-#     fileSpacy.write("\n")
-
-# fileSpacy.close()
+fileSpacy.close()
